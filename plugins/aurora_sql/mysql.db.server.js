@@ -425,6 +425,9 @@ aurora.db.mysql.Pool.prototype.query = function(query, params, opt_callback) {
         throw new Error('callback not a function');
     }
     let cb = function(error, results, fields) {
+		if(error){
+			console.error(queryObj.sql);
+		}
         callback(error, results, fields);
     };
     (this.connection_ || this.pool_).query(queryObj.sql, queryObj.values, cb);
@@ -445,7 +448,10 @@ aurora.db.mysql.Pool.prototype.queryLarge = function(query, params, rowCb, doneC
         let query = connection.query(queryObj.sql, queryObj.values);
         let queryErr = null;
         query.on('error', function(err) {
-            queryErr = err;
+            if(queryErr){
+				console.error(queryObj.sql);
+			}
+			queryErr = err;
         }).on('fields', function(fields) {
             // the field packets for the rows to follow
         }).on('result', function(row) {

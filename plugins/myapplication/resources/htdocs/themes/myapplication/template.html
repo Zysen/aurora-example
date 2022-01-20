@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>	<!-- Disable compatibility mode for IE11, we made  -->
+		<title>My Web Application</title>
+		
+		<script defer type="text/javascript" src="/client.libs.js"></script>
+		<script defer type="text/javascript" src="/client.min.js"></script>
+			
+		<link rel="stylesheet" type="text/css" href="/style.css">
+		<link rel="stylesheet" type="text/css" href="/themes/myapplication/style.css">
+		{HEADER}
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="toolbar">
+				<a href="/profile"><i class="fas fa-user-circle"></i></a>
+				<a href="/admin"><i class="fas fa-cogs"></i></a>
+			</div>
+			<div id="menu">
+				<a href="/"><i class="fas fa-home"></i> Home</a>
+				<a href="/docs"><i class="fas fa-book"></i> Docs</a>
+				<a href="/examples"><i class="far fa-list-alt"></i> Examples</a>
+			</div>
+		</div>
+		<div id="content">
+			{BODY}
+		</div>
+	</body>
+</html>

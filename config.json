@@ -1,63 +1,72 @@
 {
-    "logName": "budget",
-    "authentication": {
-	"sessionTable" : "aurora.auth.DbSessionTable.factory",
-	"persistantTimeoutMins" : 525600,
-	"logoutURL": "/",
-	"lockoutMins": 5,
-	"maxTries": 3,
-	"mail": {
-	    "from": "\"No Reply\" budget-develop@mail.com",
-	    "host": "smtp.mail.com",
-	    "port": 587,
-	    "secure": false,
-	    "auth": {
-		"user": "budget-develop@mail.com",
-		"pass" : "B7sk5sqBHhi3GBr"
-	    }
+	"aurora":{
+		"title":"aurora"
+	},
+	"logName": "Aurora",
+	"authentication": {
+		"sessionTable": "aurora.auth.DbSessionTable.factory",
+		"persistantTimeoutMins": 525600,
+		"logoutURL": "/",
+		"lockoutMins": 5,
+		"maxTries": 3,
+		"mail": {
+			"from": "\"No Reply\" noreply@alphamanager.com",
+			"host": "smtp.mail.com",
+			"port": 587,
+			"secure": false,
+			"auth": {
+				"user": "noreply@alphamanager.com",
+				"pass": "B7sk5sqBHhi3GBr"
+			}
+		}
+	},
+	"database": {
+		"databases": [
+			{
+				"driver": "aurora.db.mysql.Pool",
+				"auth": true,
+				"settings": {
+					"host": "localhost",
+					"user": "alphamanager",
+					"password": "bob",
+					"connectionLimit": 10,
+					"database": "alphamanager",
+					"port": 3307
+				},
+				"create-settings": {
+					"host": "localhost",
+					"user": "root",
+					"password": "root",
+					"database": "",
+					"backup": ".",
+					"port": 3307
+				}
+			}
+		]
+	},
+	"http": {
+		"servers": [
+			{
+				"port": 8081,
+				"protocol": "http",
+				"websocket": true,
+				"httpsRedirect": 8443,
+				"strictTransportSecurity": 31536000
+			},
+			{
+				"port": 8443,
+				"protocol": "https",
+				"websocket": true,
+				"certFile": "../letsencrypt/config/live/*/cert.pem",
+				"keyFile": "../letsencrypt/config/live/*/privkey.pem",
+				"chainFile": "../letsencrypt/config/live/*/chain.pem"
+			}
+		],
+		"hostname": "www.aurorarecoil.net",
+		"directoryBrowsing": false,
+		"defaultPage": "home",
+		"serverDescription": "Apache/2.4.10 (Debian)",
+		"theme": "myapplication",
+		"sourceDirectory": ".."
 	}
-	
-    },
-    "database": {
-	"databases" : [{
-	    "driver": "aurora.db.mysql.Pool",
-	    "auth": true,
-	    "settings" :{
-		"host":"localhost", "user": "budget-app", "password": "zUjA15U9ZrnI6cSkEp0P",
-		 "connectionLimit" : 10,
-		"database": "budget"
-	    },
-	
-	    "create-settings" :
-	    {
-		"host":"localhost", "user": "root", "password": "password", "database": "budget", "backup": "."
-	    }
-	    
-	}]
-    },
-    "http": {
-	"servers":[
-		{
-			"port": 8080,
-			"protocol": "http",
-			"websocket":true,
-			"httpsRedirect":8443,
-		    "strictTransportSecurity":31536000
-		},
-	    {
-		"port": 8443,
-		"protocol": "https",
-		"websocket":true,
-		"certFile": "../letsencrypt/config/live/*/cert.pem",
-			"keyFile": "../letsencrypt/config/live/*/privkey.pem",
-		"chainFile": "../letsencrypt/config/live/*/chain.pem"
-	    }
-	],
-	"hostname": "www.budgetservice.org.nz",
-	"directoryBrowsing": false,
-	"defaultPage": "home",
-	"serverDescription": "AuroraHTTP",
-	"theme":"budget",
-	"sourceDirectory":".."
-    }
 }

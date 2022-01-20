@@ -33,6 +33,6 @@ allPlugins.forEach(function (plugin) {
 });
 
 for (let ns in namespaceMap) {
-    gen.generateSchema(namespaceMap[ns].files,
+	gen.generateSchema(namespaceMap[ns].files,
             ns, path.join(genDir, ns + '.schema'));
 }

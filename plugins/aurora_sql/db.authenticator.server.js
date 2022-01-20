@@ -1,10 +1,11 @@
 goog.provide('aurora.db.Authenticator');
 
-
 goog.require('aurora.auth.Auth');
+goog.require('aurora.auth.DbSessionTable');
 goog.require('aurora.db.access');
 goog.require('aurora.db.schema.tables.base.user');
 goog.require('aurora.log');
+
 
 
 /**

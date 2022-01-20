@@ -10,10 +10,12 @@ build-code: node_modules
 build: build-code test module-test
 
 drop-db:
-	echo 'drop database budget; create database budget' | mysql --user=root --password=password
+	export MYSQL_PWD=root
+	echo 'drop database alphamanager; create database alphamanager' | mysql --port=3306 --host=127.0.0.1 --user=root
 
 create-db:
-	echo 'create database budget' | mysql --user=root --password=password
+	export MYSQL_PWD=root
+	echo 'create database alphamanager' | mysql --port=3306 --host=127.0.0.1 --user=root
 
 
 output/server.min.js: node_modules $(wildcard plugins/**/*.server.js)  $(wildcard plugins/**/*.shared.js) $(wildcard aurora/plugins/**/*.server.js) $(wildcard aurora/plugins/**/*.shared.js) $(wildcard plugins/recoil/**/*.js) $(wildcard plugins/closure-library/**/*.js) $(wildcard plugins/**/*.schema.json)

@@ -1,59 +1,109 @@
 {
-    "plugins":["aurora/plugins","./plugins"],
-    "ignore-tests":["plugins/closure-library"],
-    "output":"output",
-    "build_targets":[
-	{
-	    "types": ["client"],
-	    "filename": "client.min.js",
-	    "searchExp": [".*.shared.js$", ".*.client.js$"],
-	    "compiled": true,
-	    "sourcesFile":"sources.client.json",
-	    "no_warnings" : ["plugins/closure-library/closure-library/closure/goog/**.js"],
-	    "env":"BROWSER",
-	    "compilationLevel":"SIMPLE_OPTIMIZATIONS",
-	    "sourceMapLocation":"local",
-	    "externs" : ["externs/*.client.js","externs/**.shared.js"]
-	},
-	{
-	    "types": ["client"],
-	    "filename": "client.libs.js",
-	    "searchExp": [".*.shared.min.js$", ".*.client.min.js$", ".*.client.lib\\.js$"]
-	},
-	{
-	    "types": ["client"],
-	    "filename": "resources/htdocs/style.css",
-	    "searchExp": ".*\\.css$",
-	    "preSearch": ["plugins/closure-library/closure-library/closure/goog/css/*.css",
-			  "plugins/recoil/recoil/src/ui/css/*.css","plugins/recoil/*.css"]
-	},
-	{
-	    "types": ["module-test"],
-	    "filename": "module-test.min.js",
-	    "searchExp": [".*\\.shared\\.js$", ".*\\.module-test\\.js$"],
-	    "compiled": true,
-	    "externs" : ["externs/*.server.js","externs/**.shared.js"],
-	    "sourcesFile":"sources.module-test.json",
-	    "env":"CUSTOM",
-	    "nodejs":true,
-	    "imports" : ["budget.actions", "aurora.websocket.constants", "aurora.websocket.enums", "aurora.db.shared","aurora.db.schema.tables.base.user", "aurora.db.ValueSerializor"],
-	    "exports" : {"aurora": "aurora", "recoil": "recoil", "goog": "goog"},
-	    "sourceMapLocation":"local",
-	    "compilationLevel":"SIMPLE_OPTIMIZATIONS"
-	},
-	{
-	    "types": ["server"],
-	    "filename": "server.min.js",
-	    "searchExp": [".*\\.shared\\.js$", ".*\\.server\\.js$"],
-	    "compiled": true,
-	    "externs" : ["externs/*.server.js","externs/**.shared.js"],
-	    "sourcesFile":"sources.server.json",
-	    "env":"CUSTOM",
-	    "nodejs":true,
-	    "sourceMapLocation":"local",
-	    "compilationLevel":"SIMPLE_OPTIMIZATIONS"
-	}
-
-	
-    ]
+	"plugins": [
+		"aurora/plugins",
+		"./plugins"
+	],
+	"ignore-tests": [
+		"plugins/closure-library"
+	],
+	"output": "output",
+	"build_targets": [
+		{
+			"types": [
+				"client"
+			],
+			"filename": "client.min.js",
+			"searchExp": [
+				".*.shared.js$",
+				".*.client.js$"
+			],
+			"compiled": true,
+			"sourcesFile": "sources.client.json",
+			"no_warnings": [
+				"plugins/closure-library/closure-library/closure/goog/**.js"
+			],
+			"env": "BROWSER",
+			"compilationLevel": "SIMPLE_OPTIMIZATIONS",
+			"sourceMapLocation": "local",
+			"externs": [
+				"externs/*.client.js",
+				"externs/**.shared.js"
+			]
+		},
+		{
+			"types": [
+				"client"
+			],
+			"filename": "client.libs.js",
+			"searchExp": [
+				".*.shared.min.js$",
+				".*.client.min.js$",
+				".*.client.lib\\.js$"
+			]
+		},
+		{
+			"types": [
+				"client"
+			],
+			"filename": "resources/htdocs/style.css",
+			"searchExp": ".*\\.css$",
+			"preSearch": [
+				"plugins/closure-library/closure-library/closure/goog/css/*.css",
+				"plugins/recoil/recoil/src/ui/css/*.css",
+				"plugins/recoil/*.css"
+			]
+		},
+		{
+			"types": [
+				"module-test"
+			],
+			"filename": "module-test.min.js",
+			"searchExp": [
+				".*\\.shared\\.js$",
+				".*\\.module-test\\.js$"
+			],
+			"compiled": true,
+			"externs": [
+				"externs/*.server.js",
+				"externs/**.shared.js"
+			],
+			"sourcesFile": "sources.module-test.json",
+			"env": "CUSTOM",
+			"nodejs": true,
+			"imports": [
+				"aurora.websocket.constants",
+				"aurora.websocket.enums",
+				"aurora.db.shared",
+				"aurora.db.schema.tables.base.user",
+				"aurora.db.ValueSerializor"
+			],
+			"exports": {
+				"aurora": "aurora",
+				"recoil": "recoil",
+				"goog": "goog"
+			},
+			"sourceMapLocation": "local",
+			"compilationLevel": "SIMPLE_OPTIMIZATIONS"
+		},
+		{
+			"types": [
+				"server"
+			],
+			"filename": "server.min.js",
+			"searchExp": [
+				".*\\.shared\\.js$",
+				".*\\.server\\.js$"
+			],
+			"compiled": true,
+			"externs": [
+				"externs/*.server.js",
+				"externs/**.shared.js"
+			],
+			"sourcesFile": "sources.server.json",
+			"env": "CUSTOM",
+			"nodejs": true,
+			"sourceMapLocation": "local",
+			"compilationLevel": "SIMPLE_OPTIMIZATIONS"
+		}
+	]
 }
