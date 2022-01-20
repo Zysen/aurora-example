@@ -1,2 +1,2 @@
-# budget
-A simple budget generator from csv export from banks
+# Aurora Example Project
+A blank example web application
