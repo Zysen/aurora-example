@@ -1,5 +1,6 @@
 {
     "namespace": "base",
+	"require": [{"client": false, "name": "myapplication.actions"}],
     "tables" : [{
 	"name": "user",
 	"indexes": [{"unique": true, "columns": ["username"]}],
@@ -73,5 +74,31 @@
 	    { "name": "name", "type": "string(100)"},		
 	    { "name": "description", "type": "string(128)"}
 	]
-    }]	
+    }],
+	"actions": [
+			{
+	    "path": "/users/request_reset",
+	    "arrayParams": true,
+	    "function": "myapplication.actions.requestResetPassword",
+	    "access": "aurora.db.access.basic([{'': 'r'}])",
+	    "inputs": [{"name":"email", "type":"string"}]
+	},
+	{
+	    "path": "/users/do_reset",
+	    "function": "myapplication.actions.doResetPassword",
+	    "access": "aurora.db.access.basic([{'': 'r'}])",
+	    "inputs": [{"name":"user", "type":"number"}, {"name":"secret", "type": "string"}, {"name":"password", "type": "string"}]
+	},
+		
+	{
+		"path": "/users/change_password",
+		"function": "myapplication.actions.changePassword",
+		"access": "aurora.db.access.basic([{'': 'r'}])",
+		"inputs": [
+			{"name":"userid", "type":"bigint"}, 
+			{"name":"oldPassword", "type":"string"},
+			{"name":"password", "type":"string"}]
+
+	}
+	]
 }

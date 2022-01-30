@@ -1,4 +1,4 @@
-goog.provide('budget.Server');
+goog.provide('aurora.db.Server');
 
 goog.require('aurora.Chat');
 goog.require('aurora.auth.Auth');
@@ -16,7 +16,7 @@ goog.require('config');
  * @export
  * @constructor
  */
-budget.Server = function() {
+aurora.db.Server = function() {
     let log = aurora.log.createModule('MAIN');
     let initDb = false;
     let initTest = false;
@@ -33,11 +33,11 @@ budget.Server = function() {
     let databases = ((config['database'] || {})['databases']) || [];
     let auth = aurora.auth.instance;
     if (initDb) {
-        aurora.startup.taskStarted('budget.Server.initDb');
+        aurora.startup.taskStarted('aurora.db.Server.initDb');
     }
     databases.forEach(function(database) {
         let driver = /** @type {?} */(eval(database['driver']));
-        let settings = budget.Server.getSettings(initTest, database['settings']);
+        let settings = aurora.db.Server.getSettings(initTest, database['settings']);
         let pool = new driver(settings);
 
         if (database['auth']) {
@@ -51,13 +51,13 @@ budget.Server = function() {
                 log.info('Initializing database');
                 if (database['create-settings']) {
 
-                    let createPool = new driver(budget.Server.getSettings(initTest, database['create-settings'], true));
+                    let createPool = new driver(aurora.db.Server.getSettings(initTest, database['create-settings'], true));
                     aurora.db.schema.init.base.updateDb(createPool, function(err) {
                         createPool.createAppUser(settings, function(err) {
                             if (err) {
                                 log.error('ERROR creating database', err);
                             }
-                            aurora.startup.taskEnded('budget.Server.initDb');
+                            aurora.startup.taskEnded('aurora.db.Server.initDb');
 
                         });
 
@@ -70,7 +70,7 @@ budget.Server = function() {
             };
             if (initTest) {
                 // if we are a test always drop the database
-                let createPool = new driver(budget.Server.getSettings(initTest, database['create-settings'], true));
+                let createPool = new driver(aurora.db.Server.getSettings(initTest, database['create-settings'], true));
                 createPool.dropDb(function(e) {
                     doInit();
                 });
@@ -113,14 +113,14 @@ budget.Server = function() {
 /**
  * @return {!aurora.db.Pool}
  */
-budget.Server.prototype.getPool = function() {
+aurora.db.Server.prototype.getPool = function() {
     return aurora.db.Pool.getDefault();
 };
 
 /**
  * @return {!aurora.db.Reader}
  */
-budget.Server.prototype.getReader = function() {
+aurora.db.Server.prototype.getReader = function() {
     return this.reader_;
 };
 
@@ -131,7 +131,7 @@ budget.Server.prototype.getReader = function() {
  * @param {boolean=} opt_create
  * @return {!Object}
  */
-budget.Server.getSettings = function(isTest, settings, opt_create) {
+aurora.db.Server.getSettings = function(isTest, settings, opt_create) {
     if (isTest) {
         var copy = goog.object.clone(settings);
         copy['database'] = copy['database'] + '_test';
@@ -145,4 +145,4 @@ budget.Server.getSettings = function(isTest, settings, opt_create) {
 /**
  * @final
  */
-budget.Server.instance = new budget.Server();
+aurora.db.Server.instance = new aurora.db.Server();

@@ -35,7 +35,6 @@ aurora.recoil.widgets.inflate = function(scope) {
         let widget_name = element.getAttribute('data-recoil-widget');
         let widget_param = element.getAttribute('data-recoil-widget-param');
         if (widget_name) {
-            console.log('Loading', widget_name);
             if (widget_name.indexOf('.') !== -1) {
                 if (element['$.widget.loaded']) {
                     return;
@@ -53,13 +52,14 @@ aurora.recoil.widgets.inflate = function(scope) {
                             catch (e) {console.log('Unable to parse JSON from widget title arguments');console.log(e);}
                         }
 
-                        var widget = new cls(scope, args);
+                        var widget = new cls(scope, args, element.innerHTML);
+						element.innerHTML = "";
                         widget.getComponent().render(element);
                         element['$.widget.loaded'] = true;
 
                         var instanceId = 'recoil_' + widgetInstances[widget_name].length;
                         widgetInstances[widget_name].push({instanceId: instanceId, widget_name: widget_name, element: element, widget: widget, widgetDef: cls});
-                        console.log(widget_name, 'Loaded');
+                        //console.log(widget_name, 'Loaded');
                     }
                 }
                 catch (e) {
@@ -71,6 +71,6 @@ aurora.recoil.widgets.inflate = function(scope) {
             inflateWidgets(element.children[i]);
         }
     }
-    console.log('Recoil Widget Loader');
+    //console.log('Recoil Widget Loader');
     inflateWidgets(document.body);
 };

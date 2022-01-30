@@ -13,10 +13,12 @@
 		{HEADER}
 	</head>
 	<body>
+		<div id="aurora-loading"></div>
 		<div id="topbar">
 			<div id="toolbar">
-				<a href="/profile"><i class="fas fa-user-circle"></i></a>
-				<a href="/admin"><i class="fas fa-cogs"></i></a>
+				<div data-recoil-widget="myapplication.widgets.ProfileLoginButton" style="display: inline-block;" alt="Profile"></div>
+				<div data-recoil-widget="myapplication.widgets.AdminButton" style="display: inline-block;" alt="Admin"></div>
+				<div data-recoil-widget="myapplication.widgets.LogoutButton" style="display: inline-block;"  alt="Logout"></div>
 			</div>
 			<div id="menu">
 				<a href="/"><i class="fas fa-home"></i> Home</a>

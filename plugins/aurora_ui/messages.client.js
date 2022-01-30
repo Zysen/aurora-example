@@ -96,3 +96,9 @@ aurora.messages.ADD = recoil.ui.message.getParamMsg('Add');
  * @final
  */
 aurora.messages.REMOVE = recoil.ui.message.getParamMsg('Remove');
+
+/**
+ * @type {!recoil.ui.message.Message}
+ * @final
+ */
+aurora.messages.REMOVE_USER = recoil.ui.message.getParamMsg('Remove User');

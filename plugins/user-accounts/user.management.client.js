@@ -1,12 +1,12 @@
 goog.provide('aurora.widgets.UserManagement');
 
+goog.require('aurora.WidgetScope');
 goog.require('aurora.db.schema.tables.base.user');
 goog.require('aurora.messages');
 goog.require('aurora.ui.ErrorWidget');
 goog.require('aurora.widgets.PagedTable');
 goog.require('aurora.widgets.Selectize');
 goog.require('aurora.widgets.TableDialog');
-goog.require('budget.WidgetScope');
 goog.require('goog.structs.AvlTree');
 goog.require('recoil.ui.widgets.InputWidget');
 goog.require('recoil.ui.widgets.table.ButtonColumn');
@@ -16,12 +16,13 @@ goog.require('recoil.ui.widgets.table.TableWidget');
 /**
  * @constructor
  * @export
- * @param {!budget.WidgetScope} scope
+ * @param {!aurora.WidgetScope} scope
  * @param {{groups:!Array<string>, searchOnly:(boolean|undefined)}} options
+ * @param {string} htmlTemplate
  * @param {(!Array<{col:!recoil.structs.table.ColumnKey,value:(undefined|function(recoil.structs.table.TableRow):?)}>|!recoil.frp.Behaviour<!Array<{col:!recoil.structs.table.ColumnKey,value:(undefined|function(recoil.structs.table.TableRow):?)}>>)=}  opt_extraCols
  * @implements {recoil.ui.Widget}
  */
-aurora.widgets.UserManagement = function(scope, options, opt_extraCols) {
+aurora.widgets.UserManagement = function(scope, options, htmlTemplate, opt_extraCols) {
     let frp = scope.getFrp();
     options = options || {};
     var util = new recoil.frp.Util(frp);
@@ -71,11 +72,11 @@ aurora.widgets.UserManagement = function(scope, options, opt_extraCols) {
             frp.liftBI(function(tbl, groupCol, extraCols, extraDataCols, secContext) {
                 console.log('sec', secContext);
                 let res = tbl.createEmpty([], [resetPasswordCol].concat(extraDataCols));
-                res.addMeta({remove: {text: budget.messages.REMOVE_USER.toString(), confirm: 5000}});
+                res.addMeta({remove: {text: aurora.messages.REMOVE_USER.toString(), confirm: 5000}});
                 let columns = new recoil.ui.widgets.TableMetaData();
                 columns.add(userT.cols.username, 'User Name');
-                columns.add(userT.cols.firstName, 'First Name');
-                columns.add(userT.cols.lastName, 'Last Name');
+                //columns.add(userT.cols.firstName, 'First Name');
+                //columns.add(userT.cols.lastName, 'Last Name');
                 columns.add(userT.cols.email, 'Email');
                 extraCols.forEach(function(info) {
                     if (info.col) {
@@ -97,8 +98,8 @@ aurora.widgets.UserManagement = function(scope, options, opt_extraCols) {
                     columns.addColumn(new recoil.ui.widgets.table.ButtonColumn(resetPasswordCol, 'Reset Password', {text: 'Reset'}));
                 }
                 res.addColumnMeta(userT.cols.username, {displayLength: 10});
-                res.addColumnMeta(userT.cols.firstName, {displayLength: 10});
-                res.addColumnMeta(userT.cols.lastName, {displayLength: 10});
+                //res.addColumnMeta(userT.cols.firstName, {displayLength: 10});
+                //res.addColumnMeta(userT.cols.lastName, {displayLength: 10});
                 res.addColumnMeta(userT.cols.email, {displayLength: 20});
 
                 if (options.searchOnly) {
@@ -276,7 +277,7 @@ aurora.widgets.UserManagement.makeNewRow = function(sample, tblKeys) {
     newRow.set(tblKeys.groups, []);
 
 
-    newRow.set(tblKeys.mentorid, null); // todo remove this from here
+    //newRow.set(tblKeys.mentorid, null); // todo remove this from here
     newRow.set(COLS.confirmPasswordCK, '');
     newRow.set(COLS.oldPasswordCK, '');
 

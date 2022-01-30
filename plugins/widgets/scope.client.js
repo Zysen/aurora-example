@@ -1,4 +1,4 @@
-goog.provide('budget.WidgetScope');
+goog.provide('myapplication.WidgetScope');
 
 goog.require('aurora.WidgetScope');
 goog.require('aurora.db.Comms');
@@ -10,11 +10,8 @@ goog.require('aurora.db.Comms');
  * @param {!aurora.db.Comms} comms
  * @constructor
  */
-budget.WidgetScope = function(frp, db, comms) {
+myapplication.WidgetScope = function(frp, db, comms) {
     aurora.WidgetScope.call(this, frp, db);
     this.comms_ = comms;
 };
-goog.inherits(budget.WidgetScope, aurora.WidgetScope);
-
-
-
+goog.inherits(myapplication.WidgetScope, aurora.WidgetScope);

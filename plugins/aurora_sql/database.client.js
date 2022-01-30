@@ -3,6 +3,7 @@
  */
 goog.provide('aurora.db.PermDatabase');
 
+goog.require('aurora.permissions');
 goog.require('recoil.db.Database');
 
 /**
